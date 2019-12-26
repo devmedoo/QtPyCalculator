@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<measures>
+    <measure name="length">
+        <unit name="meter">1</unit>
+        <unit name="centimetre">0.01</unit>
+        <unit name="kilometre">1000</unit>
+        <unit name="millimetre">0.001</unit>
+        <unit name="micrometre">0.000001</unit>
+        <unit name="nanometre">0.000000001</unit>
+        <unit name="mile">1609.34</unit>
+        <unit name="yard">0.9144</unit>
+        <unit name="foot">0.3048</unit>
+        <unit name="inch">0.0254</unit>
+    </measure>
+    <measure name="area">
+        <unit name="square metre">1</unit>
+        <unit name="square kilometre">1000000</unit>
+        <unit name="square mile">2589988.1103</unit>
+        <unit name="square yard">0.83613119866071</unit>
+        <unit name="square foot">0.09290346651785666432</unit>
+        <unit name="square inch">0.00064516296192956010865</unit>
+        <unit name="hectare">10000</unit>
+        <unit name="acre">4046.86</unit>
+    </measure>
+    <measure name="volume">
+        <unit name="litre">1</unit>
+        <unit name="gallon">3.785411784</unit>
+        <unit name="pint">0.473176473</unit>
+        <unit name="cubic metre">1000</unit>
+        <unit name="cubic decimetre">1</unit>
+        <unit name="cubic centimetre">0.0010000</unit>
+        <unit name="cubic foot">28.316864592</unit>
+        <unit name="cubic inch">0.016387064</unit>
+    </measure>
+    <measure name="weight">
+        <unit name="kilogram">1</unit>
+        <unit name="tonne">1000</unit>
+        <unit name="gram">0.001</unit>
+        <unit name="milligram">1e-6</unit>
+        <unit name="mircogram">1e-9</unit>
+        <unit name="pound">0.453592</unit>
+        <unit name="ounce">0.0283495</unit>
+    </measure>
+    <measure name="speed">
+        <unit name="meter per second">1</unit>
+        <unit name="kilometre per hour">0.27777777777</unit>
+        <unit name="miles per hour">0.44704</unit>
+        <unit name="knot">0.514444</unit>
+        <unit name="foot per second">0.3048</unit>
+    </measure>
+    <measure name="temperature">
+        <unit name="celsius" equation="true">x</unit>
+        <unit name="fahrenheit" equation="true">(x * 9/5) + 32</unit>
+        <unit name="kelvin" equation="true">x + 273.15</unit>
+    </measure>
+    <measure name="fuel">
+        <unit name="kilometre per liter">1</unit>
+        <unit name="mile per liter">1.609344</unit>
+        <unit name="mile per gallon">0.4251437075</unit>
+    </measure>
+</measures>
