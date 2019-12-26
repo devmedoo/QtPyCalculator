@@ -119,7 +119,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        input.text = python.addfunction(input.text, "abs");
+                        input.text = python.append_function(input.text, "abs");
                     }
                 }
 
@@ -173,6 +173,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        // Create new object out of this file and show it
                         var component = Qt.createComponent("Unit_Converter.ui.qml")
                         var unit_converter_window   = component.createObject(window)
                         unit_converter_window.show()
@@ -346,7 +347,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        input.text = python.addfunction(input.text, "sqrt");
+                        input.text = python.append_function(input.text, "sqrt");
                     }
                 }
                 
@@ -373,7 +374,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        input.text = python.addfunction(input.text, "sin");
+                        input.text = python.append_function(input.text, "sin");
                     }
                 }
 
@@ -577,7 +578,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        input.text = python.addfunction(input.text, "cos");
+                        input.text = python.append_function(input.text, "cos");
                     }
                 }
 
@@ -727,7 +728,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        input.text = python.addfunction(input.text, "log");
+                        input.text = python.append_function(input.text, "log");
                     }
                 }
 
@@ -754,7 +755,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        input.text = python.addfunction(input.text, "ln");
+                        input.text = python.append_function(input.text, "ln");
                     }
                 }
 
@@ -781,7 +782,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        input.text = python.addfunction(input.text, "tan");
+                        input.text = python.append_function(input.text, "tan");
                     }
                 }
 
@@ -1019,6 +1020,7 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
+                        // Trigger calculate, replacing e constant with big E and % with /100 for the parser
                         input.text = python.calculate(input.text.replace(/e/g, "E").replace(/%/g, "/100"))
                     }
                 }

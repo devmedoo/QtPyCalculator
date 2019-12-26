@@ -47,36 +47,43 @@ ApplicationWindow {
 	}
 
 	function selectCurrencyMeasure(){
+		// Request currency list from Python
 		let request_currency_list = python.grab_currency_list()
 		if (request_currency_list != false) {
-			// Yay
+			// If the request was successful
 			measure_text.text = "currency";
 			measure_image.source = "../assets/images/currency.svg";
+			// Get a tuple of unit names only for ComboBox
 			let unit_names = python.units.map(function(tuple){
 				return tuple[0];
 			});
+			// Put the tuple as a model for ComboBox
 			first_unit.model = unit_names;
 			second_unit.model = unit_names;
 			main_units_grid.visible = false;
 			unit_background.visible = true;
 			
 		} else {
-			// Nay
+			// Show error dialog
 			internetDialog.visible = true
 		}
 	}
 
 	function selectMeasure(measure) {
 		if (measure == "currency") {
+			// Different handling for Currency unit converter
 			selectCurrencyMeasure()
 			return;
 		}
+		// Request units from Python
 		python.grab_unit_list(measure);
 		measure_text.text = measure;
 		measure_image.source = "../assets/images/"+measure+'.svg';
+		// Get a tuple of unit names only for ComboBox
 		let unit_names = python.units.map(function(tuple){
 			return tuple[0];
 		});
+		// Put the tuple as a model for ComboBox
 		first_unit.model = unit_names;
 		second_unit.model = unit_names;
 		main_units_grid.visible = false;
@@ -84,18 +91,22 @@ ApplicationWindow {
 	}
 
 	function convert_units(unitChanged){
-		let first_unit_data = python.units[first_unit.currentIndex];
-		let second_unit_data = python.units[second_unit.currentIndex];
 		if (unitChanged == 1) {
+			// Top box/input changed
 			if(measure_text.text == "currency"){
+				// Convert the bottom input with .2 precision
 				second_edit.text = (parseFloat(python.convert(first_unit.currentIndex, first_edit.text, second_unit.currentIndex)).toFixed(2)).toString()
 			} else {
+				// Convert the bottom input
 				second_edit.text = python.convert(first_unit.currentIndex, first_edit.text, second_unit.currentIndex)
 			}
 		} else if (unitChanged == 2) {
 			if(measure_text.text == "currency"){
+				// Bottom box/input changed
+				// Convert the top input with .2 precision
 				first_edit.text =  (parseFloat(python.convert(second_unit.currentIndex, second_edit.text, first_unit.currentIndex)).toFixed(2)).toString()
 			} else {
+				// Convert the top input
 				first_edit.text =  python.convert(second_unit.currentIndex, second_edit.text, first_unit.currentIndex)
 			}
 		}

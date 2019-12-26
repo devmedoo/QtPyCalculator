@@ -26,20 +26,6 @@ class Bridge(QObject):
 		if self.m_units == val:
 			return
 		self.m_units = val[:]
-	
-	@Property('QVariant')
-	def currency_data(self):
-		"""
-			Currency_Data QVariant property to be used by QML
-		"""
-		return self.m_currency
-	
-	@currency_data.setter
-	def set_currency_data(self, val):
-		"""
-			Currency_Data setter
-		"""
-		self.m_currency = val
 
 	def __init__(self, parent=None):
 		# QMLObject REQUIRED Init
@@ -51,8 +37,6 @@ class Bridge(QObject):
 		self.root = tree.getroot()
 		# Set list-typed units
 		self.m_units = []
-		# Set dict-typed currency_data
-		self.m_currency = dict()
 
 	# Angle mode ("DEGREE" or "RADIAN")
 	angle_mode = "DEGREE"
@@ -107,7 +91,7 @@ class Bridge(QObject):
 		return sub("(?<=sin\(|tan\(|cos\()(\d+)(?=\))", r"(\1*(pi/180))", user_input)
 	
 	@Slot(str, str, result=str)
-	def addfunction(self, user_input, func):
+	def append_function(self, user_input, func):
 		"""
 		A function to handle appending mathematical functions to user input.
 		Uses regular expressions (with look ahead).
@@ -146,15 +130,22 @@ class Bridge(QObject):
 		"""
 		url = "https://api.exchangeratesapi.io/latest"
 		try:
+			# GET request to grab the data
 			response = requests.get(url=url)
+			# Grab the JSON data from the response
 			currency_data = response.json()
+			# Create dummy list
 			units = []
 			for key, value in currency_data['rates'].items():
+				# Iterate through each currency rate and add it to units
+				# Multiplicative inverse is used in order for the values to be consistent with the unit conversion algorithim
 				units.append([str(key),str("{:.2}".format(float(1/value))),False])
+			# Save the dummy list to the real QML-compliant list
 			self.units = units
-			print(self.units)
+			# Return ok boolean
 			return response.ok
 		except:
+			# In case something goes wrong
 			return False
 
 	@Slot(int, float, int, result=str)
@@ -170,18 +161,24 @@ class Bridge(QObject):
 		secondary_unit_data = secondary_unit[1]
 		secondary_unit_equation = secondary_unit[2]
 
-
 		if active_unit_equation is False and secondary_unit_equation is False:
+			# If the conversions are rational and don't require equation solving (every unit conversion except temperature)
+			# Convert and remove trailing zeros then return the resultant string
 			return sub("(\.|0)0+$", "", str(sympify(str(active_unit_data) + "*" + str(active_unit_input) + "/" + str(secondary_unit_data)).evalf()))
 		else:
+			# If the conversions require equation solving
+			# Create x symbol (sympy type)
 			x = symbols('x')
 			try: 
 				sympy_expression = sympify("Eq("+ str(active_unit_input) +", "+ active_unit_data +")")
 				sympy_solve = solve(sympy_expression)
 				if type(sympy_solve) == list:
 					sympy_solve = sympy_solve[0]
+				# Get equation inverse
 				active_unit_inverse_data = sub("y", str(active_unit_input), str(sympy_solve))
+				# Calculate the resultant equation and remove trailing zeros then return return the resultant string
 				return sub("(\.|0)0+$", "", str(sympify(str(secondary_unit_data)).evalf(subs={x: active_unit_inverse_data})))
 			except:
+				# Something went wrong, return 0
 				print('Error')
 				return "0"
