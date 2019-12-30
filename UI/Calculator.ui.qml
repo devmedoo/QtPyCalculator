@@ -10,7 +10,7 @@ ApplicationWindow {
     visible: true
     color: "#0d1d1a"
     width: 600
-    height: 430
+    height: 470
     
 
     // Function to handle appending numbers

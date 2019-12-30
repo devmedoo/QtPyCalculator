@@ -28,7 +28,7 @@ ApplicationWindow {
 				id: quit
 				text: qsTr("&Quit")
 				onTriggered: {
-					window.close()
+					unit_converter_window.close()
 				}
 			}
 		}
@@ -165,8 +165,8 @@ ApplicationWindow {
 			}
 			
 			Rectangle {
-				id: rectangle
-				x: 565
+				id: back_rectangle
+				x: 0
 				y: 0
 				width: 35
 				height: 35
@@ -189,7 +189,7 @@ ApplicationWindow {
 					width: 35
 					height: 35
 					color: "#c5d2be"
-					text: qsTr("X")
+					text: qsTr("<")
 					verticalAlignment: Text.AlignVCenter
 					horizontalAlignment: Text.AlignHCenter
 					font.pixelSize: 12
