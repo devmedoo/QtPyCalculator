@@ -2,6 +2,8 @@
 
 QtPyCalculator (pronounced "cutie pie calculator") is a calculator and unit conversion application made using Qt and Python as a school project.
 
+![Demo](QtPyCalculator.gif)
+
 ## Installation
 
 ### From source
